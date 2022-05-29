@@ -5,7 +5,7 @@ export default [
     nickname: 'asperiores',
     email: 'otho.smitham@example.com',
     salary: '€ 13098.00',
-    age: 39
+    age: 39,
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ export default [
     nickname: 'alias',
     email: 'pollich.cecilia@example.com',
     salary: '€ 35978.00',
-    age: 26
+    age: 26,
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ export default [
     nickname: 'id',
     email: 'little.myrna@example.net',
     salary: '€ 26278.00',
-    age: 48
+    age: 48,
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ export default [
     nickname: 'vel',
     email: 'dock47@example.org',
     salary: '€ 25537.00',
-    age: 27
+    age: 27,
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ export default [
     nickname: 'qui',
     email: 'ugrady@example.org',
     salary: '€ 49003.00',
-    age: 21
+    age: 21,
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ export default [
     nickname: 'reiciendis',
     email: 'amari.rau@example.com',
     salary: '€ 12383.00',
-    age: 48
+    age: 48,
   },
   {
     id: 7,
@@ -53,7 +53,7 @@ export default [
     nickname: 'quaerat',
     email: 'adrien.baumbach@example.org',
     salary: '€ 18512.00',
-    age: 31
+    age: 31,
   },
   {
     id: 8,
@@ -61,7 +61,7 @@ export default [
     nickname: 'rerum',
     email: 'ohettinger@example.net',
     salary: '€ 31209.00',
-    age: 28
+    age: 28,
   },
   {
     id: 9,
@@ -69,7 +69,7 @@ export default [
     nickname: 'non',
     email: 'stefan99@example.com',
     salary: '€ 36920.00',
-    age: 53
+    age: 53,
   },
   {
     id: 10,
@@ -77,7 +77,7 @@ export default [
     nickname: 'ex',
     email: 'ejacobson@example.org',
     salary: '€ 35616.00',
-    age: 27
+    age: 27,
   },
   {
     id: 11,
@@ -85,7 +85,7 @@ export default [
     nickname: 'assumenda',
     email: 'ayost@example.com',
     salary: '€ 30790.00',
-    age: 29
+    age: 29,
   },
   {
     id: 12,
@@ -93,7 +93,7 @@ export default [
     nickname: 'praesentium',
     email: 'ckassulke@example.net',
     salary: '€ 35785.00',
-    age: 27
+    age: 27,
   },
   {
     id: 13,
@@ -101,7 +101,7 @@ export default [
     nickname: 'et',
     email: 'bashirian.hyman@example.net',
     salary: '€ 31836.00',
-    age: 35
+    age: 35,
   },
   {
     id: 14,
@@ -109,7 +109,7 @@ export default [
     nickname: 'eos',
     email: 'janis71@example.org',
     salary: '€ 11902.00',
-    age: 38
+    age: 38,
   },
   {
     id: 15,
@@ -117,7 +117,7 @@ export default [
     nickname: 'autem',
     email: 'dusty74@example.net',
     salary: '€ 11927.00',
-    age: 45
+    age: 45,
   },
   {
     id: 16,
@@ -125,7 +125,7 @@ export default [
     nickname: 'fugit',
     email: 'gbogisich@example.org',
     salary: '€ 44686.00',
-    age: 43
+    age: 43,
   },
   {
     id: 17,
@@ -133,7 +133,7 @@ export default [
     nickname: 'dolorem',
     email: 'btorp@example.com',
     salary: '€ 25055.00',
-    age: 29
+    age: 29,
   },
   {
     id: 18,
@@ -141,7 +141,7 @@ export default [
     nickname: 'sed',
     email: 'phoebe.sauer@example.org',
     salary: '€ 11650.00',
-    age: 24
+    age: 24,
   },
   {
     id: 19,
@@ -149,7 +149,7 @@ export default [
     nickname: 'nostrum',
     email: 'asawayn@example.org',
     salary: '€ 46962.00',
-    age: 53
+    age: 53,
   },
   {
     id: 20,
@@ -157,7 +157,7 @@ export default [
     nickname: 'velit',
     email: 'laila.hintz@example.org',
     salary: '€ 12928.00',
-    age: 46
+    age: 46,
   },
   {
     id: 21,
@@ -165,7 +165,7 @@ export default [
     nickname: 'rerum',
     email: 'wfay@example.org',
     salary: '€ 22638.00',
-    age: 26
+    age: 26,
   },
   {
     id: 22,
@@ -173,7 +173,7 @@ export default [
     nickname: 'qui',
     email: 'gregoria.jakubowski@example.com',
     salary: '€ 49345.00',
-    age: 42
+    age: 42,
   },
   {
     id: 23,
@@ -181,7 +181,7 @@ export default [
     nickname: 'repellat',
     email: 'ltorphy@example.com',
     salary: '€ 17560.00',
-    age: 42
+    age: 42,
   },
   {
     id: 24,
@@ -189,7 +189,7 @@ export default [
     nickname: 'quasi',
     email: 'ivy51@example.net',
     salary: '€ 35370.00',
-    age: 30
+    age: 30,
   },
   {
     id: 25,
@@ -197,7 +197,7 @@ export default [
     nickname: 'nesciunt',
     email: 'alisa83@example.net',
     salary: '€ 32725.00',
-    age: 24
+    age: 24,
   },
   {
     id: 26,
@@ -205,7 +205,7 @@ export default [
     nickname: 'voluptas',
     email: 'bosco.shaina@example.net',
     salary: '€ 9844.00',
-    age: 23
+    age: 23,
   },
   {
     id: 27,
@@ -213,7 +213,7 @@ export default [
     nickname: 'alias',
     email: 'satterfield.jonathan@example.com',
     salary: '€ 41950.00',
-    age: 25
+    age: 25,
   },
   {
     id: 28,
@@ -221,7 +221,7 @@ export default [
     nickname: 'corporis',
     email: 'tracy.barrows@example.com',
     salary: '€ 41803.00',
-    age: 50
+    age: 50,
   },
   {
     id: 29,
@@ -229,7 +229,7 @@ export default [
     nickname: 'quia',
     email: 'gerhard65@example.org',
     salary: '€ 22896.00',
-    age: 43
+    age: 43,
   },
   {
     id: 30,
@@ -237,7 +237,7 @@ export default [
     nickname: 'est',
     email: 'crystel66@example.net',
     salary: '€ 18805.00',
-    age: 43
+    age: 43,
   },
   {
     id: 31,
@@ -245,7 +245,7 @@ export default [
     nickname: 'dolorum',
     email: 'sandrine06@example.net',
     salary: '€ 16644.00',
-    age: 32
+    age: 32,
   },
   {
     id: 32,
@@ -253,7 +253,7 @@ export default [
     nickname: 'laudantium',
     email: 'jborer@example.net',
     salary: '€ 35728.00',
-    age: 42
+    age: 42,
   },
   {
     id: 33,
@@ -261,7 +261,7 @@ export default [
     nickname: 'recusandae',
     email: 'ondricka.lurline@example.org',
     salary: '€ 44574.00',
-    age: 35
+    age: 35,
   },
   {
     id: 34,
@@ -269,7 +269,7 @@ export default [
     nickname: 'nihil',
     email: 'rfeest@example.net',
     salary: '€ 19949.00',
-    age: 48
+    age: 48,
   },
   {
     id: 35,
@@ -277,7 +277,7 @@ export default [
     nickname: 'suscipit',
     email: 'ila24@example.net',
     salary: '€ 36323.00',
-    age: 51
+    age: 51,
   },
   {
     id: 36,
@@ -285,7 +285,7 @@ export default [
     nickname: 'quo',
     email: 'jarred77@example.com',
     salary: '€ 48462.00',
-    age: 42
+    age: 42,
   },
   {
     id: 37,
@@ -293,7 +293,7 @@ export default [
     nickname: 'officia',
     email: 'fgoyette@example.net',
     salary: '€ 19601.00',
-    age: 42
+    age: 42,
   },
   {
     id: 38,
@@ -301,7 +301,7 @@ export default [
     nickname: 'a',
     email: 'ericka44@example.net',
     salary: '€ 33149.00',
-    age: 35
+    age: 35,
   },
   {
     id: 39,
@@ -309,7 +309,7 @@ export default [
     nickname: 'quia',
     email: 'jlegros@example.net',
     salary: '€ 21951.00',
-    age: 40
+    age: 40,
   },
   {
     id: 40,
@@ -317,7 +317,7 @@ export default [
     nickname: 'perspiciatis',
     email: 'franecki.gerald@example.org',
     salary: '€ 41552.00',
-    age: 53
+    age: 53,
   },
   {
     id: 41,
@@ -325,7 +325,7 @@ export default [
     nickname: 'ad',
     email: 'ldeckow@example.net',
     salary: '€ 22709.00',
-    age: 42
+    age: 42,
   },
   {
     id: 42,
@@ -333,7 +333,7 @@ export default [
     nickname: 'molestiae',
     email: 'gladyce84@example.com',
     salary: '€ 32354.00',
-    age: 25
+    age: 25,
   },
   {
     id: 43,
@@ -341,7 +341,7 @@ export default [
     nickname: 'aut',
     email: 'kessler.helen@example.net',
     salary: '€ 45086.00',
-    age: 54
+    age: 54,
   },
   {
     id: 44,
@@ -349,7 +349,7 @@ export default [
     nickname: 'amet',
     email: 'eudora36@example.net',
     salary: '€ 15661.00',
-    age: 46
+    age: 46,
   },
   {
     id: 45,
@@ -357,7 +357,7 @@ export default [
     nickname: 'quia',
     email: 'halvorson.theodora@example.org',
     salary: '€ 15862.00',
-    age: 39
+    age: 39,
   },
   {
     id: 46,
@@ -365,7 +365,7 @@ export default [
     nickname: 'expedita',
     email: 'trantow.neoma@example.com',
     salary: '€ 12544.00',
-    age: 25
+    age: 25,
   },
   {
     id: 47,
@@ -373,7 +373,7 @@ export default [
     nickname: 'cupiditate',
     email: 'bhermiston@example.net',
     salary: '€ 14457.00',
-    age: 50
+    age: 50,
   },
   {
     id: 48,
@@ -381,7 +381,7 @@ export default [
     nickname: 'et',
     email: 'camila.ward@example.com',
     salary: '€ 40278.00',
-    age: 49
+    age: 49,
   },
   {
     id: 49,
@@ -389,7 +389,7 @@ export default [
     nickname: 'voluptatum',
     email: 'pacocha.yesenia@example.org',
     salary: '€ 9305.00',
-    age: 34
+    age: 34,
   },
   {
     id: 50,
@@ -397,6 +397,6 @@ export default [
     nickname: 'odit',
     email: 'kenyatta.oconnell@example.com',
     salary: '€ 36980.00',
-    age: 38
-  }
+    age: 38,
+  },
 ];

@@ -1,8 +1,9 @@
+/* eslint-disable no-shadow */
 export const state = () => ({
   auth: null,
   devices: [],
   selectedDevice: {},
-  notifications: []
+  notifications: [],
 });
 
 export const mutations = {
@@ -30,63 +31,59 @@ export const actions = {
   readToken() {
     let auth = null;
     try {
-      auth = JSON.parse(localStorage.getItem("auth"));
-    } catch (error) {
+      auth = JSON.parse(localStorage.getItem('auth'));
+    } catch (err) {
       console.log(err);
     }
-    //saving auth in state
-    this.commit("setAuth", auth);
+    // Guardando auth en el state
+    this.commit('setAuth', auth);
   },
 
   getDevices() {
-
     const axiosHeader = {
       headers: {
-        token: this.state.auth.token
-      }
+        token: this.state.auth.token,
+      },
     };
 
-    this.$axios.get("/device", axiosHeader)
-    .then(res => {
-      console.log(res.data.data);
+    this.$axios.get('/device', axiosHeader)
+      .then((res) => {
+        console.log(res.data.data);
 
-      res.data.data.forEach((device, index) => {
-        if (device.selected){
-          this.commit("setSelectedDevice", device);
-          $nuxt.$emit('selectedDeviceIndex', index);
+        res.data.data.forEach((device, index) => {
+          if (device.selected) {
+            this.commit('setSelectedDevice', device);
+            // eslint-disable-next-line no-undef
+            $nuxt.$emit('selectedDeviceIndex', index);
+          }
+        });
+
+        // Si todos los dispositivos se eliminaron
+        if (res.data.data.length === 0) {
+          this.commit('setSelectedDevice', {});
+          // eslint-disable-next-line no-undef
+          $nuxt.$emit('selectedDeviceIndex', null);
         }
+
+        this.commit('setDevices', res.data.data);
+      }).catch((error) => {
+        console.log(error);
       });
-
-      //if all devices were removed
-      if (res.data.data.length == 0){
-        this.commit("setSelectedDevice", {});
-        $nuxt.$emit('selectedDeviceIndex', null);
-      }
-
-      this.commit("setDevices", res.data.data);
-
-
-    }).catch(error => {
-      console.log(error);
-    });
-    
   },
 
   getNotifications() {
-
     const axiosHeader = {
       headers: {
-        token: this.state.auth.token
-      }
+        token: this.state.auth.token,
+      },
     };
 
-    this.$axios.get("/notifications", axiosHeader)
-    .then(res => {
-      console.log(res.data.data);
-      this.commit("setNotifications", res.data.data)
-    }).catch(error => {
-      console.log(error);
-    });
-    
-  }
+    this.$axios.get('/notifications', axiosHeader)
+      .then((res) => {
+        console.log(res.data.data);
+        this.commit('setNotifications', res.data.data);
+      }).catch((error) => {
+        console.log(error);
+      });
+  },
 };

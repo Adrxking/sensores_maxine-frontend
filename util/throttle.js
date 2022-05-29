@@ -3,6 +3,7 @@
  * @param handlerFunc
  * @param [timeout] the throttle interval
  */
+// eslint-disable-next-line import/prefer-default-export
 export function throttle(handlerFunc, timeout = 66) {
   let resizeTimeout;
   if (!resizeTimeout) {
