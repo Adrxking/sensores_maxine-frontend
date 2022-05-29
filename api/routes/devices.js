@@ -1,408 +1,199 @@
-const express = require("express");
+import Device from '../models/device';
+import SaverRule from '../models/emqx_saver_rule';
+import Template from '../models/template';
+import AlarmRule from '../models/emqx_alarm_rule';
+import EmqxAuthRule from '../models/emqx_auth';
+
+const express = require('express');
+
 const router = express.Router();
-const { checkAuth } = require("../middlewares/authentication.js");
-const axios = require("axios");
+const axios = require('axios');
 
-import Device from "../models/device.js";
-import SaverRule from "../models/emqx_saver_rule.js";
-import Template from "../models/template.js";
-import AlarmRule from "../models/emqx_alarm_rule.js";
-import EmqxAuthRule from "../models/emqx_auth.js";
+const { checkAuth } = require('../middlewares/authentication');
 
-
-
-//******************
-//**** A P I *******
-//****************** 
-
-const auth = {
-  auth: {
-    username: "admin",
-    password: process.env.EMQX_DEFAULT_APPLICATION_SECRET
-  }
-};
-
-
-//GET DEVICES
-router.get("/device", checkAuth, async (req, res) => {
-  try {
-    const userId = req.userData._id;
-
-    //get devices
-    var devices = await Device.find({ userId: userId });
-
-    //mongoose array to js array
-    devices = JSON.parse(JSON.stringify(devices));
-
-    //get saver rules
-    const saverRules = await getSaverRules(userId);
-
-    //get templates
-    const templates = await getTemplates(userId);
-
-    //get alarm rules
-    const alarmRules = await getAlarmRules(userId);
-
-    //saver rules to -> devices
-    devices.forEach((device, index) => {
-      devices[index].saverRule = saverRules.filter(
-        saverRule => saverRule.dId == device.dId
-      )[0];
-      devices[index].template = templates.filter(
-        template => template._id == device.templateId
-      )[0];
-      devices[index].alarmRules = alarmRules.filter(
-        alarmRule => alarmRule.dId == device.dId
-      );
-    });
-
-    const response = {
-      status: "success",
-      data: devices
-    };
-
-    res.json(response);
-  } catch (error) {
-    console.log("ERROR GETTING DEVICES");
-    console.log(error);
-
-    const response = {
-      status: "error",
-      error: error
-    };
-
-    return res.status(500).json(response);
-  }
-});
-
-//NEW DEVICE
-router.post("/device", checkAuth, async (req, res) => {
-  try {
-    const userId = req.userData._id;
-
-    var newDevice = req.body.newDevice;
-
-    newDevice.userId = userId;
-
-    newDevice.createdTime = Date.now();
-
-    newDevice.password = makeid(10);
-
-    await createSaverRule(userId, newDevice.dId, true);
-
-    const device = await Device.create(newDevice);
-
-    await selectDevice(userId, newDevice.dId);
-
-    const response = {
-      status: "success"
-    };
-
-    return res.json(response);
-  } catch (error) {
-    console.log("ERROR CREATING NEW DEVICE");
-    console.log(error);
-
-    const response = {
-      status: "error",
-      error: error
-    };
-
-    return res.status(500).json(response);
-  }
-});
-
-//DELETE DEVICE
-router.delete("/device", checkAuth, async (req, res) => {
-  try {
-    const userId = req.userData._id;
-    const dId = req.query.dId;
-
-    //deleting saver rule.
-    await deleteSaverRule(dId);
-
-    //deleting all posible alarm rules
-    await deleteAllAlarmRules(userId, dId);
-
-    //deleting all posible mqtt device credentials
-    await deleteMqttDeviceCredentials(dId);
-
-    //deleting device
-    const result = await Device.deleteOne({ userId: userId, dId: dId });
-
-    //devices after deletion
-    const devices = await Device.find({ userId: userId });
-
-    if (devices.length >= 1) {
-      //any selected?
-      var found = false;
-      devices.forEach(devices => {
-        if (devices.selected == true) {
-          found = true;
-        }
-      });
-
-      //if no selected...
-      //we need to selet the first
-      if (!found) {
-        await Device.updateMany({ userId: userId }, { selected: false });
-        await Device.updateOne(
-          { userId: userId, dId: devices[0].dId },
-          { selected: true }
-        );
-      }
-    }
-
-    const response = {
-      status: "success",
-      data: result
-    };
-
-    return res.json(response);
-  } catch (error) {
-    console.log("ERROR DELETING DEVICE");
-    console.log(error);
-
-    const response = {
-      status: "error",
-      error: error
-    };
-
-    return res.status(500).json(response);
-  }
-});
-
-//UPDATE DEVICE (SELECTOR)
-router.put("/device", checkAuth, async (req, res) => {
-  try {
-    const dId = req.body.dId;
-    const userId = req.userData._id;
-
-    if (await selectDevice(userId, dId)) {
-      const response = {
-        status: "success"
-      };
-
-      return res.json(response);
-    } else {
-      const response = {
-        status: "error"
-      };
-
-      return res.json(response);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-//SAVER-RULE STATUS UPDATER
-router.put("/saver-rule", checkAuth, async (req, res) => {
-  try {
-    const rule = req.body.rule;
-
-    console.log(rule);
-
-    await updateSaverRuleStatus(rule.emqxRuleId, rule.status);
-
-    const response = {
-      status: "success"
-    };
-
-    res.json(response);
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-
-
-//**********************
-//**** FUNCTIONS *******
-//********************** 
+// **********************
+// **** FUNCIONES *******
+// **********************
 
 async function getAlarmRules(userId) {
   try {
-    const rules = await AlarmRule.find({ userId: userId });
+    const rules = await AlarmRule.find({ userId });
     return rules;
   } catch (error) {
-    return "error";
+    return 'error';
   }
 }
 
 async function selectDevice(userId, dId) {
   try {
-    const result = await Device.updateMany(
-      { userId: userId },
-      { selected: false }
+    await Device.updateMany(
+      { userId },
+      { selected: false },
     );
 
-    const result2 = await Device.updateOne(
-      { dId: dId, userId: userId },
-      { selected: true }
+    await Device.updateOne(
+      { dId, userId },
+      { selected: true },
     );
 
     return true;
   } catch (error) {
-    console.log("ERROR IN 'selectDevice' FUNCTION ");
+    console.log("ERROR EN LA FUNCIÓN 'selectDevice' ");
     console.log(error);
     return false;
   }
 }
 
+// FUNCIÓN FOR EACH ASYNC
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index += 1) {
+    // eslint-disable-next-line no-await-in-loop
+    await callback(array[index], index, array);
+  }
+}
+
 /*
- SAVER RULES FUNCTIONS
+ FUNCIONES DE GUARDADO DE REGLAS
 */
 
-//get templates
+// Obtener plantillas
 async function getTemplates(userId) {
   try {
-    const templates = await Template.find({ userId: userId });
+    const templates = await Template.find({ userId });
     return templates;
   } catch (error) {
     return false;
   }
 }
 
-//get saver rules
+// Obtener reglas de guardado
 async function getSaverRules(userId) {
   try {
-    const rules = await SaverRule.find({ userId: userId });
+    const rules = await SaverRule.find({ userId });
     return rules;
   } catch (error) {
     return false;
   }
 }
 
-//create saver rule
+// Crear regla de guardado
 async function createSaverRule(userId, dId, status) {
-
- 
   try {
-    const url = "http://"+process.env.EMQX_API_HOST+":8085/api/v4/rules";
+    const url = `http://${process.env.EMQX_API_HOST}:8085/api/v4/rules`;
 
-    const topic = userId + "/" + dId + "/+/sdata";
+    const topic = `${userId}/${dId}/+/sdata`;
 
-    const rawsql =
-      'SELECT topic, payload FROM "' + topic + '" WHERE payload.save = 1';
+    const rawsql = `SELECT topic, payload FROM "${topic}" WHERE payload.save = 1`;
 
-    var newRule = {
-      rawsql: rawsql,
+    const newRule = {
+      rawsql,
       actions: [
         {
-          name: "data_to_webserver",
+          name: 'data_to_webserver',
           params: {
             $resource: global.saverResource.id,
             payload_tmpl:
-              '{"userId":"' +
-              userId +
-              '","payload":${payload},"topic":"${topic}"}'
-          }
-        }
+              `{"userId":"${
+                userId
+              }","payload":\${payload},"topic":"\${topic}"}`,
+          },
+        },
       ],
-      description: "SAVER-RULE",
-      enabled: status
+      description: 'SAVER-RULE',
+      enabled: status,
     };
 
-    //save rule in emqx - grabamos la regla en emqx
+    // Guardar la regla en EMQX
+    // eslint-disable-next-line no-use-before-define
     const res = await axios.post(url, newRule, auth);
-
 
     if (res.status === 200 && res.data.data) {
       await SaverRule.create({
-        userId: userId,
-        dId: dId,
+        userId,
+        dId,
         emqxRuleId: res.data.data.id,
-        status: status
+        status,
       });
 
       return true;
-    } else {
-      return false;
     }
+    return false;
   } catch (error) {
-    console.log("Error creating saver rule");
+    console.log('ERROR CREANDO REGLA DE GUARDADO');
     console.log(error);
     return false;
   }
 }
 
-//update saver rule
+// Actualizar regla de guardado
 async function updateSaverRuleStatus(emqxRuleId, status) {
   try {
-    const url = "http://"+process.env.EMQX_API_HOST+":8085/api/v4/rules/" + emqxRuleId;
+    const url = `http://${process.env.EMQX_API_HOST}:8085/api/v4/rules/${emqxRuleId}`;
 
     const newRule = {
-      enabled: status
+      enabled: status,
     };
 
+    // eslint-disable-next-line no-use-before-define
     const res = await axios.put(url, newRule, auth);
 
     if (res.status === 200 && res.data.data) {
-      await SaverRule.updateOne({ emqxRuleId: emqxRuleId }, { status: status });
-      console.log("Saver Rule Status Updated...".green);
+      await SaverRule.updateOne({ emqxRuleId }, { status });
+      console.log('ESTADO DE LA REGLA DE GUARDADO ACTUALIZADA...'.green);
       return true;
-    } else {
-      return false;
     }
+    return false;
   } catch (error) {
     return false;
   }
 }
 
-//delete saver rule
+// Eliminar regla de guardado
 async function deleteSaverRule(dId) {
   try {
-    const mongoRule = await SaverRule.findOne({ dId: dId });
+    const mongoRule = await SaverRule.findOne({ dId });
 
-    const url = "http://"+process.env.EMQX_API_HOST+":8085/api/v4/rules/" + mongoRule.emqxRuleId;
+    const url = `http://${process.env.EMQX_API_HOST}:8085/api/v4/rules/${mongoRule.emqxRuleId}`;
 
-    const emqxRule = await axios.delete(url, auth);
+    // eslint-disable-next-line no-use-before-define
+    await axios.delete(url, auth);
 
-    const deleted = await SaverRule.deleteOne({ dId: dId });
+    await SaverRule.deleteOne({ dId });
 
     return true;
   } catch (error) {
-    console.log("Error deleting saver rule");
+    console.log('ERROR ELIMINANDO REGLA DE GUARDADO');
     console.log(error);
     return false;
   }
 }
 
-//delete ALL alarm Rules...
+// Eliminar todas las reglas de alarmas
 async function deleteAllAlarmRules(userId, dId) {
   try {
-    const rules = await AlarmRule.find({ userId: userId, dId: dId });
+    const rules = await AlarmRule.find({ userId, dId });
 
     if (rules.length > 0) {
-      asyncForEach(rules, async rule => {
-        const url = "http://"+process.env.EMQX_API_HOST+":8085/api/v4/rules/" + rule.emqxRuleId;
-        const res = await axios.delete(url, auth);
+      asyncForEach(rules, async (rule) => {
+        const url = `http://${process.env.EMQX_API_HOST}:8085/api/v4/rules/${rule.emqxRuleId}`;
+        // eslint-disable-next-line no-use-before-define
+        await axios.delete(url, auth);
       });
 
-      await AlarmRule.deleteMany({ userId: userId, dId: dId });
+      await AlarmRule.deleteMany({ userId, dId });
     }
 
     return true;
   } catch (error) {
     console.log(error);
-    return "error";
+    return 'error';
   }
 }
 
-// We can solve this by creating our own asyncForEach() method:
-// thanks to Sebastien Chopin - Nuxt Creator :)
-// https://codeburst.io/javascript-async-await-with-foreach-b6ba62bbf404
-async function asyncForEach(array, callback) {
-  for (let index = 0; index < array.length; index++) {
-    await callback(array[index], index, array);
-  }
-}
-
-//delete ALL emqx device  auth rules
+// Eliminar todas las reglas de auth de los dispositivos EMQX
 async function deleteMqttDeviceCredentials(dId) {
   try {
-    await EmqxAuthRule.deleteMany({ dId: dId, type: "device" });
+    await EmqxAuthRule.deleteMany({ dId, type: 'device' });
 
     return true;
   } catch (error) {
@@ -412,28 +203,226 @@ async function deleteMqttDeviceCredentials(dId) {
 }
 
 function makeid(length) {
-
   try {
-    var result = "";
-    var characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i += 1) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
   } catch (error) {
     console.log(error);
   }
-
+  return false;
 }
+
+// ******************
+// **** A P I *******
+// ******************
+
+const auth = {
+  auth: {
+    username: 'admin',
+    password: process.env.EMQX_DEFAULT_APPLICATION_SECRET,
+  },
+};
+
+// OBTENER DISPOSITIVOS
+router.get('/device', checkAuth, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-underscore-dangle
+    const userId = req.userData._id;
+
+    // Obtener dispositivos
+    let devices = await Device.find({ userId });
+
+    // Mongoose array a JS array
+    devices = JSON.parse(JSON.stringify(devices));
+
+    // Obtener reglas de guardado
+    const saverRules = await getSaverRules(userId);
+
+    // Obtener plantillas
+    const templates = await getTemplates(userId);
+
+    // Obtener reglas de alarmas
+    const alarmRules = await getAlarmRules(userId);
+
+    // Reglas de guardado a -> Dispositivos
+    devices.forEach((device, index) => {
+      // eslint-disable-next-line prefer-destructuring
+      devices[index].saverRule = saverRules.filter(
+        (saverRule) => saverRule.dId === device.dId,
+      )[0];
+      // eslint-disable-next-line prefer-destructuring
+      devices[index].template = templates.filter(
+        // eslint-disable-next-line no-underscore-dangle
+        (template) => template._id === device.templateId,
+      )[0];
+      devices[index].alarmRules = alarmRules.filter(
+        (alarmRule) => alarmRule.dId === device.dId,
+      );
+    });
+
+    const response = {
+      status: 'success',
+      data: devices,
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.log('ERROR OBTENIENDO DISPOSITIVOS');
+    console.log(error);
+
+    const response = {
+      status: 'error',
+      error,
+    };
+
+    return res.status(500).json(response);
+  }
+  return false;
+});
+
+// Crear Dispositivo
+router.post('/device', checkAuth, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-underscore-dangle
+    const userId = req.userData._id;
+
+    const { newDevice } = req.body;
+
+    newDevice.userId = userId;
+
+    newDevice.createdTime = Date.now();
+
+    newDevice.password = makeid(10);
+
+    await createSaverRule(userId, newDevice.dId, true);
+
+    await Device.create(newDevice);
+
+    await selectDevice(userId, newDevice.dId);
+
+    const response = {
+      status: 'success',
+    };
+
+    return res.json(response);
+  } catch (error) {
+    console.log('ERROR CREANDO NUEVO DISPOSITIVO');
+    console.log(error);
+
+    const response = {
+      status: 'error',
+      error,
+    };
+
+    return res.status(500).json(response);
+  }
+});
+
+// Eliminar Dispositivo
+router.delete('/device', checkAuth, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-underscore-dangle
+    const userId = req.userData._id;
+    const { dId } = req.query;
+
+    // ELIMINAR REGLA DE GUARDADO
+    await deleteSaverRule(dId);
+
+    // ELIMINAR TODAS LAS POSIBLES REGLAS DE ALARMAS
+    await deleteAllAlarmRules(userId, dId);
+
+    // ELIMINAR TODOS LAS POSIBLES CREDENCIALES DE DISPOSITIVOS MQTT
+    await deleteMqttDeviceCredentials(dId);
+
+    // ELIMINAR EL DISPOSITIVO
+    const result = await Device.deleteOne({ userId, dId });
+
+    // DISPOSITIVOS DESPUES DEL ELIMINADO
+    const devices = await Device.find({ userId });
+
+    if (devices.length >= 1) {
+      let found = false;
+      devices.forEach((device) => {
+        if (device.selected === true) {
+          found = true;
+        }
+      });
+
+      if (!found) {
+        await Device.updateMany({ userId }, { selected: false });
+        await Device.updateOne(
+          { userId, dId: devices[0].dId },
+          { selected: true },
+        );
+      }
+    }
+
+    const response = {
+      status: 'success',
+      data: result,
+    };
+
+    return res.json(response);
+  } catch (error) {
+    console.log('ERROR ELIMINANDO DISPOSITIVO');
+    console.log(error);
+
+    const response = {
+      status: 'error',
+      error,
+    };
+
+    return res.status(500).json(response);
+  }
+});
+
+// Actualizar Dispositivo
+router.put('/device', checkAuth, async (req, res) => {
+  try {
+    const { dId } = req.body;
+    // eslint-disable-next-line no-underscore-dangle
+    const userId = req.userData._id;
+
+    if (await selectDevice(userId, dId)) {
+      const response = {
+        status: 'success',
+      };
+
+      return res.json(response);
+    }
+    const response = {
+      status: 'error',
+    };
+
+    return res.json(response);
+  } catch (error) {
+    console.log(error);
+  }
+  return false;
+});
+
+// Actualizar estado de la regla de guardado
+router.put('/saver-rule', checkAuth, async (req, res) => {
+  try {
+    const { rule } = req.body;
+
+    console.log(rule);
+
+    await updateSaverRuleStatus(rule.emqxRuleId, rule.status);
+
+    const response = {
+      status: 'success',
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 module.exports = router;
-
-/*
-userId/dId/temperature -> 
-{
-  value: 21,
-  save: 1
-}
-*/

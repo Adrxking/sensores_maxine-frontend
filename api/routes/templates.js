@@ -1,122 +1,107 @@
+// Modelos
+import Template from '../models/template';
+import Device from '../models/device';
+
+// Requerimientos
 const express = require('express');
+
 const router = express.Router();
-const { checkAuth } = require('../middlewares/authentication.js');
+const { checkAuth } = require('../middlewares/authentication');
 
-//models import
-import Template from '../models/template.js';
-import Device from '../models/device.js';
-
-//get templates
+// Obtener plantillas
 router.get('/template', checkAuth, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-underscore-dangle
+    const userId = req.userData._id;
 
-    try {
+    const templates = await Template.find({ userId });
 
-        const userId = req.userData._id;
+    console.log(userId);
+    console.log(templates);
 
-        const templates = await Template.find({userId: userId});
+    const response = {
+      status: 'success',
+      data: templates,
+    };
 
-        console.log(userId);
-        console.log(templates)
+    return res.json(response);
+  } catch (error) {
+    console.log(error);
 
-        const response = {
-            status: "success",
-            data: templates
-        }
+    const response = {
+      status: 'error',
+      error,
+    };
 
-        return res.json(response);
-
-    } catch (error) {
-
-        console.log(error);
-
-        const response = {
-            status: "error",
-            error: error
-        }
-
-        return res.status(500).json(response);
-
-    }
-
+    return res.status(500).json(response);
+  }
 });
 
-//create template
+// Crear plantilla
 router.post('/template', checkAuth, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-underscore-dangle
+    const userId = req.userData._id;
 
-    try {
+    const newTemplate = req.body.template;
 
-        const userId = req.userData._id;
+    newTemplate.userId = userId;
+    newTemplate.createdTime = Date.now();
 
-        var newTemplate = req.body.template;
+    await Template.create(newTemplate);
 
-        newTemplate.userId = userId;
-        newTemplate.createdTime = Date.now();
+    const response = {
+      status: 'success',
+    };
 
-        const r = await Template.create(newTemplate);
+    return res.json(response);
+  } catch (error) {
+    console.log(error);
 
-        const response = {
-            status: "success",
-        }
+    const response = {
+      status: 'error',
+      error,
+    };
 
-        return res.json(response)
-
-    } catch (error) {
-
-        console.log(error);
-
-        const response = {
-            status: "error",
-            error: error
-        }
-
-        return res.status(500).json(response);
-
-    }
-
+    return res.status(500).json(response);
+  }
 });
 
-//delete template
+// Eliminar plantilla
 router.delete('/template', checkAuth, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-underscore-dangle
+    const userId = req.userData._id;
+    const { templateId } = req.query;
 
-    try {
+    const devices = await Device.find({ userId, templateId });
 
-        const userId = req.userData._id;
-        const templateId = req.query.templateId;
+    if (devices.length > 0) {
+      const response = {
+        status: 'fail',
+        error: 'template in use',
+      };
 
-        const devices = await Device.find({userId: userId, templateId: templateId });
-
-
-        if (devices.length > 0){
-
-            const response = {
-                status: "fail",
-                error: "template in use"
-            }
-    
-            return res.json(response);
-        }
-
-        const r = await Template.deleteOne({userId: userId, _id: templateId});
-
-        const response = {
-            status: "success",
-        }
-
-        return res.json(response)
-
-    } catch (error) {
-
-        console.log(error);
-
-        const response = {
-            status: "error",
-            error: error
-        }
-
-        return res.status(500).json(response);
-
+      return res.json(response);
     }
 
+    await Template.deleteOne({ userId, _id: templateId });
+
+    const response = {
+      status: 'success',
+    };
+
+    return res.json(response);
+  } catch (error) {
+    console.log(error);
+
+    const response = {
+      status: 'error',
+      error,
+    };
+
+    return res.status(500).json(response);
+  }
 });
 
 module.exports = router;

@@ -1,10 +1,12 @@
 <template>
   <div>
-    <!-- WIDGET CONFIGURATOR -->
+    <!-- WIDGET CONFIGURADOR -->
     <div class="row">
       <card>
         <div slot="header">
-          <h4 class="card-title">Widgets {{iotIndicatorConfig.column}}</h4>
+          <h4 class="card-title">
+            Widgets {{ iotIndicatorConfig.column }}
+          </h4>
         </div>
 
         <div class="row">
@@ -21,33 +23,31 @@
                 class="text-dark"
                 value="numberchart"
                 label="Number Chart INPUT <-"
-              >
-              </el-option>
+              />
               <el-option
                 class="text-dark"
                 value="indicator"
                 label="Boolean Indicator INPUT <-"
-              >
-              </el-option>
+              />
               <el-option
                 class="text-dark"
                 value="map"
                 label="Map INPUT <-"
-              ></el-option>
+              />
               <el-option
                 class="text-dark"
                 value="switch"
                 label="Switch OUTPUT ->"
-              ></el-option>
+              />
               <el-option
                 class="text-dark"
                 value="button"
                 label="Button OUTPUT ->"
-              ></el-option>
+              />
             </el-select>
 
-            <br />
-            <br />
+            <br>
+            <br>
 
             <!-- FORMS NUMBER CHART TYPE -->
             <div v-if="widgetType == 'numberchart'">
@@ -55,42 +55,43 @@
                 v-model="ncConfig.variableFullName"
                 label="Var Name"
                 type="text"
-              >
-              </base-input>
+              />
 
-              <base-input v-model="ncConfig.unit" label="Unit" type="text">
-              </base-input>
+              <base-input
+                v-model="ncConfig.unit"
+                label="Unit"
+                type="text"
+              />
 
               <base-input
                 v-model.number="ncConfig.decimalPlaces"
                 label="Decimal Places"
                 type="number"
-              >
-              </base-input>
+              />
 
               <base-input
                 v-model="ncConfig.icon"
                 label="Icon"
                 type="text"
-              ></base-input>
+              />
 
-              <br />
+              <br>
 
               <base-input
                 v-model.number="ncConfig.variableSendFreq"
                 label="Send Freq"
                 type="number"
-              ></base-input>
+              />
 
-              <br />
+              <br>
 
               <base-input
                 v-model.number="ncConfig.chartTimeAgo"
                 label="Chart Back Time (mins)"
                 type="number"
-              ></base-input>
+              />
 
-              <br />
+              <br>
 
               <el-select
                 v-model="ncConfig.class"
@@ -102,25 +103,25 @@
                   class="text-success"
                   value="success"
                   label="Success"
-                ></el-option>
+                />
                 <el-option
                   class="text-primary"
                   value="primary"
                   label="Primary"
-                ></el-option>
+                />
                 <el-option
                   class="text-warning"
                   value="warning"
                   label="Warning"
-                ></el-option>
+                />
                 <el-option
                   class="text-danger"
                   value="danger"
                   label="Danger"
-                ></el-option>
+                />
               </el-select>
 
-              <br /><br /><br />
+              <br><br><br>
 
               <el-select
                 v-model="ncConfig.column"
@@ -132,55 +133,55 @@
                   class="text-dark"
                   value="col-3"
                   label="col-3"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-4"
                   label="col-4"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-5"
                   label="col-5"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-6"
                   label="col-6"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-7"
                   label="col-7"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-8"
                   label="col-8"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-9"
                   label="col-9"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-10"
                   label="col-10"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-11"
                   label="col-11"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-12"
                   label="col-12"
-                ></el-option>
+                />
               </el-select>
 
-              <br /><br />
+              <br><br>
             </div>
 
             <!-- FORM SWITCH TYPE -->
@@ -189,16 +190,15 @@
                 v-model="iotSwitchConfig.variableFullName"
                 label="Var Name"
                 type="text"
-              >
-              </base-input>
+              />
 
               <base-input
                 v-model="iotSwitchConfig.icon"
                 label="Icon"
                 type="text"
-              ></base-input>
+              />
 
-              <br />
+              <br>
 
               <el-select
                 v-model="iotSwitchConfig.class"
@@ -210,25 +210,25 @@
                   class="text-success"
                   value="success"
                   label="Success"
-                ></el-option>
+                />
                 <el-option
                   class="text-primary"
                   value="primary"
                   label="Primary"
-                ></el-option>
+                />
                 <el-option
                   class="text-warning"
                   value="warning"
                   label="Warning"
-                ></el-option>
+                />
                 <el-option
                   class="text-danger"
                   value="danger"
                   label="Danger"
-                ></el-option>
+                />
               </el-select>
 
-              <br /><br /><br />
+              <br><br><br>
 
               <el-select
                 v-model="iotSwitchConfig.column"
@@ -240,55 +240,55 @@
                   class="text-dark"
                   value="col-3"
                   label="col-3"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-4"
                   label="col-4"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-5"
                   label="col-5"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-6"
                   label="col-6"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-7"
                   label="col-7"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-8"
                   label="col-8"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-9"
                   label="col-9"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-10"
                   label="col-10"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-11"
                   label="col-11"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-12"
                   label="col-12"
-                ></el-option>
+                />
               </el-select>
 
-              <br /><br />
+              <br><br>
             </div>
 
             <!-- FORM BUTTON TYPE -->
@@ -297,30 +297,27 @@
                 v-model="configButton.variableFullName"
                 label="Var Name"
                 type="text"
-              >
-              </base-input>
+              />
 
               <base-input
                 v-model="configButton.message"
                 label="Message to send"
                 type="text"
-              >
-              </base-input>
+              />
 
               <base-input
                 v-model="configButton.text"
                 label="Button Text"
                 type="text"
-              >
-              </base-input>
+              />
 
               <base-input
                 v-model="configButton.icon"
                 label="Icon"
                 type="text"
-              ></base-input>
+              />
 
-              <br />
+              <br>
 
               <el-select
                 v-model="configButton.class"
@@ -332,25 +329,25 @@
                   class="text-success"
                   value="success"
                   label="Success"
-                ></el-option>
+                />
                 <el-option
                   class="text-primary"
                   value="primary"
                   label="Primary"
-                ></el-option>
+                />
                 <el-option
                   class="text-warning"
                   value="warning"
                   label="Warning"
-                ></el-option>
+                />
                 <el-option
                   class="text-danger"
                   value="danger"
                   label="Danger"
-                ></el-option>
+                />
               </el-select>
 
-              <br /><br /><br />
+              <br><br><br>
 
               <el-select
                 v-model="configButton.column"
@@ -362,82 +359,80 @@
                   class="text-dark"
                   value="col-3"
                   label="col-3"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-4"
                   label="col-4"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-5"
                   label="col-5"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-6"
                   label="col-6"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-7"
                   label="col-7"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-8"
                   label="col-8"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-9"
                   label="col-9"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-10"
                   label="col-10"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-11"
                   label="col-11"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-12"
                   label="col-12"
-                ></el-option>
+                />
               </el-select>
 
-              <br /><br />
+              <br><br>
             </div>
 
             <!-- FORM INDICATOR TYPE -->
             <div v-if="widgetType == 'indicator'">
-
               <base-input
                 v-model="iotIndicatorConfig.variableFullName"
                 label="Var Name"
                 type="text"
-              >
-              </base-input>
+              />
 
               <base-input
                 v-model="iotIndicatorConfig.icon"
                 label="Icon"
                 type="text"
-              ></base-input>
+              />
 
-              <br />
+              <br>
 
               <base-input
                 v-model="iotIndicatorConfig.variableSendFreq"
                 label="Send Freq"
                 type="text"
-              ></base-input>
+              />
 
-              <br />
+              <br>
 
               <el-select
                 v-model="iotIndicatorConfig.class"
@@ -449,25 +444,25 @@
                   class="text-success"
                   value="success"
                   label="Success"
-                ></el-option>
+                />
                 <el-option
                   class="text-primary"
                   value="primary"
                   label="Primary"
-                ></el-option>
+                />
                 <el-option
                   class="text-warning"
                   value="warning"
                   label="Warning"
-                ></el-option>
+                />
                 <el-option
                   class="text-danger"
                   value="danger"
                   label="Danger"
-                ></el-option>
+                />
               </el-select>
 
-              <br /><br /><br />
+              <br><br><br>
 
               <el-select
                 v-model="iotIndicatorConfig.column"
@@ -479,55 +474,55 @@
                   class="text-dark"
                   value="col-3"
                   label="col-3"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-4"
                   label="col-4"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-5"
                   label="col-5"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-6"
                   label="col-6"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-7"
                   label="col-7"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-8"
                   label="col-8"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-9"
                   label="col-9"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-10"
                   label="col-10"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-11"
                   label="col-11"
-                ></el-option>
+                />
                 <el-option
                   class="text-dark"
                   value="col-12"
                   label="col-12"
-                ></el-option>
+                />
               </el-select>
 
-              <br /><br />
+              <br><br>
             </div>
           </div>
 
@@ -536,19 +531,19 @@
             <Rtnumberchart
               v-if="widgetType == 'numberchart'"
               :config="ncConfig"
-            ></Rtnumberchart>
+            />
             <Iotswitch
               v-if="widgetType == 'switch'"
               :config="iotSwitchConfig"
-            ></Iotswitch>
+            />
             <Iotbutton
               v-if="widgetType == 'button'"
               :config="configButton"
-            ></Iotbutton>
+            />
             <Iotindicator
               v-if="widgetType == 'indicator'"
               :config="iotIndicatorConfig"
-            ></Iotindicator>
+            />
           </div>
         </div>
 
@@ -579,58 +574,58 @@
         <i
           aria-hidden="true"
           class="fa fa-trash text-warning pull-right"
-          @click="deleteWidget(index)"
           style="margin-bottom: 10px;"
-        ></i>
+          @click="deleteWidget(index)"
+        />
 
         <Rtnumberchart
           v-if="widget.widget == 'numberchart'"
           :config="widget"
-        ></Rtnumberchart>
+        />
 
         <Iotswitch
           v-if="widget.widget == 'switch'"
           :config="widget"
-        ></Iotswitch>
+        />
 
         <Iotbutton
           v-if="widget.widget == 'button'"
           :config="widget"
-        ></Iotbutton>
+        />
 
         <Iotindicator
           v-if="widget.widget == 'indicator'"
           :config="widget"
-        ></Iotindicator>
+        />
       </div>
     </div>
 
     <!-- SAVE TEMPLATE FORM-->
-    <div class="row" >
+    <div class="row">
       <card>
         <div slot="header">
-          <h4 class="card-title">Guardar plantilla</h4>
+          <h4 class="card-title">
+            Guardar plantilla
+          </h4>
         </div>
 
         <div class="row">
           <base-input
-            class="col-4"
             v-model="templateName"
+            class="col-4"
             label="Template Name"
             type="text"
-          >
-          </base-input>
+          />
 
           <base-input
-            class="col-8"
             v-model="templateDescription"
+            class="col-8"
             label="Template Description"
             type="text"
-          >
-          </base-input>
+          />
         </div>
 
-        <br /><br />
+        <br><br>
 
         <div class="row">
           <div class="col-12">
@@ -639,8 +634,8 @@
               type="primary"
               class="mb-3 pull-right"
               size="lg"
-              @click="saveTemplate()"
               :disabled="widgets.length == 0"
+              @click="saveTemplate()"
             >
               Guardar plantilla
             </base-button>
@@ -653,30 +648,46 @@
     <div class="row">
       <card>
         <div slot="header">
-          <h4 class="card-title">Plantillas</h4>
+          <h4 class="card-title">
+            Plantillas
+          </h4>
         </div>
 
         <div class="row">
           <el-table :data="templates">
-            <el-table-column min-width="50" label="#" align="center">
-              <div class="photo" slot-scope="{ row, $index }">
+            <el-table-column
+              min-width="50"
+              label="#"
+              align="center"
+            >
+              <div
+                slot-scope="{ row, $index }"
+                class="photo"
+              >
                 {{ $index + 1 }}
               </div>
             </el-table-column>
 
-            <el-table-column prop="name" label="Name"></el-table-column>
+            <el-table-column
+              prop="name"
+              label="Name"
+            />
 
             <el-table-column
               prop="description"
               label="Descripción"
-            ></el-table-column>
+            />
 
             <el-table-column
               prop="widgets.length"
               label="Widgets"
-            ></el-table-column>
+            />
 
-            <el-table-column header-align="right" align="right" label="Actions">
+            <el-table-column
+              header-align="right"
+              align="right"
+              label="Actions"
+            >
               <div
                 slot-scope="{ row, $index }"
                 class="text-right table-actions"
@@ -688,13 +699,13 @@
                   placement="top"
                 >
                   <base-button
-                    @click="deleteTemplate(row)"
                     type="danger"
                     icon
                     size="sm"
                     class="btn-link"
+                    @click="deleteTemplate(row)"
                   >
-                    <i class="tim-icons icon-simple-remove "></i>
+                    <i class="tim-icons icon-simple-remove " />
                   </base-button>
                 </el-tooltip>
               </div>
@@ -703,103 +714,99 @@
         </div>
       </card>
     </div>
-
-
   </div>
 </template>
 
 <script>
-import { Table, TableColumn } from "element-ui";
-import { Select, Option } from "element-ui";
+import {
+  Table, TableColumn, Select, Option,
+} from 'element-ui';
 
 export default {
-  middleware: "authenticated",
+  middleware: 'authenticated',
   components: {
     [Table.name]: Table,
     [TableColumn.name]: TableColumn,
     [Option.name]: Option,
-    [Select.name]: Select
+    [Select.name]: Select,
   },
   data() {
     return {
       widgets: [],
       templates: [],
-      widgetType: "",
-      templateName: "",
-      templateDescription: "",
-
+      widgetType: '',
+      templateName: '',
+      templateDescription: '',
 
       ncConfig: {
-        userId: "sampleuserid",
+        userId: 'sampleuserid',
         selectedDevice: {
-          name: "Home",
-          dId: "8888"
+          name: 'Home',
+          dId: '8888',
         },
-        variableFullName: "temperature",
-        variable: "varname",
-        variableType: "input",
-        variableSendFreq: "30",
-        unit: "Watts",
-        class: "success",
-        column: "col-12",
+        variableFullName: 'temperature',
+        variable: 'varname',
+        variableType: 'input',
+        variableSendFreq: '30',
+        unit: 'Watts',
+        class: 'success',
+        column: 'col-12',
         decimalPlaces: 2,
-        widget: "numberchart",
-        icon: "fa-sun",
+        widget: 'numberchart',
+        icon: 'fa-sun',
         chartTimeAgo: 60,
-        demo: true
+        demo: true,
       },
 
       iotSwitchConfig: {
-        userId: "userid",
+        userId: 'userid',
         selectedDevice: {
-          name: "Home",
-          dId: "8888"
+          name: 'Home',
+          dId: '8888',
         },
-        variableFullName: "Luz",
-        variable: "varname",
-        variableType: "output",
-        class: "danger",
-        widget: "switch",
-        icon: "fa-bath",
-        column: "col-6"
+        variableFullName: 'Luz',
+        variable: 'varname',
+        variableType: 'output',
+        class: 'danger',
+        widget: 'switch',
+        icon: 'fa-bath',
+        column: 'col-6',
       },
 
-
       iotIndicatorConfig: {
-        userId: "userid",
+        userId: 'userid',
         selectedDevice: {
-          name: "Home",
-          dId: "8888"
+          name: 'Home',
+          dId: '8888',
         },
-        variableFullName: "temperature",
-        variable: "varname",
-        variableType: "input",
-        variableSendFreq: "30",
-        class: "success",
-        widget: "indicator",
-        icon: "fa-bath",
-        column: "col-6"
+        variableFullName: 'temperature',
+        variable: 'varname',
+        variableType: 'input',
+        variableSendFreq: '30',
+        class: 'success',
+        widget: 'indicator',
+        icon: 'fa-bath',
+        column: 'col-6',
       },
 
       configButton: {
-        userId: "userid",
+        userId: 'userid',
         selectedDevice: {
-          name: "Home",
-          dId: "8888",
-          templateName: "Power Sensor",
-          templateId: "984237562348756ldksjfh",
-          saverRule: false
+          name: 'Home',
+          dId: '8888',
+          templateName: 'Power Sensor',
+          templateId: '984237562348756ldksjfh',
+          saverRule: false,
         },
-        variableFullName: "Pump",
-        variable: "var1",
-        variableType: "output",
-        icon: "fa-sun",
-        column: "col-4",
-        widget: "button",
-        class: "danger",
-        message: "{'fanstatus': 'stop'}"
+        variableFullName: 'Pump',
+        variable: 'var1',
+        variableType: 'output',
+        icon: 'fa-sun',
+        column: 'col-4',
+        widget: 'button',
+        class: 'danger',
+        message: "{'fanstatus': 'stop'}",
       },
-
 
     };
   },
@@ -809,38 +816,37 @@ export default {
   },
 
   methods: {
-    //Get Templates
+    // Obtener plantillas
     async getTemplates() {
       const axiosHeaders = {
         headers: {
-          token: this.$store.state.auth.token
-        }
+          token: this.$store.state.auth.token,
+        },
       };
 
       try {
-        const res = await this.$axios.get("/template", axiosHeaders);
+        const res = await this.$axios.get('/template', axiosHeaders);
         console.log(res.data);
 
-        if (res.data.status == "success") {
+        if (res.data.status === 'success') {
           this.templates = res.data.data;
         }
       } catch (error) {
         this.$notify({
-          type: "danger",
-          icon: "tim-icons icon-alert-circle-exc",
-          message: "Error getting templates..."
+          type: 'danger',
+          icon: 'tim-icons icon-alert-circle-exc',
+          message: 'Error getting templates...',
         });
         console.log(error);
-        return;
       }
     },
 
-    //Save Template
+    // Guardar plantilla
     async saveTemplate() {
       const axiosHeaders = {
         headers: {
-          token: this.$store.state.auth.token
-        }
+          token: this.$store.state.auth.token,
+        },
       };
 
       console.log(axiosHeaders);
@@ -849,18 +855,18 @@ export default {
         template: {
           name: this.templateName,
           description: this.templateDescription,
-          widgets: this.widgets
-        }
+          widgets: this.widgets,
+        },
       };
 
       try {
-        const res = await this.$axios.post("/template", toSend, axiosHeaders);
+        const res = await this.$axios.post('/template', toSend, axiosHeaders);
 
-        if (res.data.status == "success") {
+        if (res.data.status === 'success') {
           this.$notify({
-            type: "success",
-            icon: "tim-icons icon-alert-circle-exc",
-            message: "Template created!"
+            type: 'success',
+            icon: 'tim-icons icon-alert-circle-exc',
+            message: 'Template created!',
           });
           this.getTemplates();
 
@@ -868,108 +874,103 @@ export default {
         }
       } catch (error) {
         this.$notify({
-          type: "danger",
-          icon: "tim-icons icon-alert-circle-exc",
-          message: "Error creating template..."
+          type: 'danger',
+          icon: 'tim-icons icon-alert-circle-exc',
+          message: 'Error creating template...',
         });
         console.log(error);
-        return;
       }
     },
 
-    //Delete Template
+    // Delete Template
     async deleteTemplate(template) {
-
-
       const axiosHeaders = {
         headers: {
-          token: this.$store.state.auth.token
+          token: this.$store.state.auth.token,
         },
-        params:{
-          templateId:template._id
-        }
+        params: {
+          // eslint-disable-next-line no-underscore-dangle
+          templateId: template._id,
+        },
       };
 
       console.log(axiosHeaders);
 
       try {
+        const res = await this.$axios.delete('/template', axiosHeaders);
 
-        const res = await this.$axios.delete("/template", axiosHeaders);
+        console.log(res.data);
 
-        console.log(res.data)
-
-        if (res.data.status == "fail" && res.data.error == "template in use") {
-
+        if (res.data.status === 'fail' && res.data.error === 'template in use') {
           this.$notify({
-            type: "danger",
-            icon: "tim-icons icon-alert-circle-exc",
-            message: template.name + " is in use. First remove the devices linked to the template!"
+            type: 'danger',
+            icon: 'tim-icons icon-alert-circle-exc',
+            message:
+              `${template.name} está en uso.
+              Primero elimina los dispositivos linkeados a la plantilla`,
           });
 
           return;
         }
 
-        if (res.data.status == "success") {
+        if (res.data.status === 'success') {
           this.$notify({
-            type: "success",
-            icon: "tim-icons icon-check-2",
-            message: template.name + " was deleted!"
+            type: 'success',
+            icon: 'tim-icons icon-check-2',
+            message: `${template.name} was deleted!`,
           });
 
           this.getTemplates();
         }
       } catch (error) {
         this.$notify({
-          type: "danger",
-          icon: "tim-icons icon-alert-circle-exc",
-          message: "Error getting templates..."
+          type: 'danger',
+          icon: 'tim-icons icon-alert-circle-exc',
+          message: 'Error getting templates...',
         });
         console.log(error);
-        return;
       }
     },
 
-    //Add Widget
+    // Añadir widget
     addNewWidget() {
-      if (this.widgetType == "numberchart") {
+      if (this.widgetType === 'numberchart') {
         this.ncConfig.variable = this.makeid(10);
         this.widgets.push(JSON.parse(JSON.stringify(this.ncConfig)));
       }
 
-      if (this.widgetType == "switch") {
+      if (this.widgetType === 'switch') {
         this.iotSwitchConfig.variable = this.makeid(10);
         this.widgets.push(JSON.parse(JSON.stringify(this.iotSwitchConfig)));
       }
 
-      if (this.widgetType == "button") {
+      if (this.widgetType === 'button') {
         this.configButton.variable = this.makeid(10);
         this.widgets.push(JSON.parse(JSON.stringify(this.configButton)));
       }
 
-      if (this.widgetType == "indicator") {
+      if (this.widgetType === 'indicator') {
         this.iotIndicatorConfig.variable = this.makeid(10);
         this.widgets.push(JSON.parse(JSON.stringify(this.iotIndicatorConfig)));
       }
-
     },
 
-    //Delete Widget
+    // Eliminar Widget
     deleteWidget(index) {
       this.widgets.splice(index, 1);
     },
 
     makeid(length) {
-      var result = "";
-      var characters =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      var charactersLength = characters.length;
-      for (var i = 0; i < length; i++) {
+      let result = '';
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      const charactersLength = characters.length;
+      for (let i = 0; i < length; i += 1) {
         result += characters.charAt(
-          Math.floor(Math.random() * charactersLength)
+          Math.floor(Math.random() * charactersLength),
         );
       }
       return result;
-    }
-  }
+    },
+  },
 };
 </script>

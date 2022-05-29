@@ -1,21 +1,27 @@
 <template>
   <div class="wrapper">
-    <notifications></notifications>
+    <notifications />
 
-    <router-view name="header"></router-view>
+    <router-view name="header" />
 
-    <div :class="{ content: true }" style="margin-top: 100px;">
-      <zoom-center-transition :duration="200" mode="out-in">
-        <!-- your content here -->
+    <div
+      :class="{ content: true }"
+      style="margin-top: 100px;"
+    >
+      <zoom-center-transition
+        :duration="200"
+        mode="out-in"
+      >
+        <!-- Tu contenido aquí -->
         <nuxt />
       </zoom-center-transition>
     </div>
   </div>
 </template>
 <script>
-/* eslint-disable no-new */
-import PerfectScrollbar from "perfect-scrollbar";
-import "perfect-scrollbar/css/perfect-scrollbar.css";
+import PerfectScrollbar from 'perfect-scrollbar';
+import 'perfect-scrollbar/css/perfect-scrollbar.css';
+import { ZoomCenterTransition } from 'vue2-transitions';
 
 function hasElement(className) {
   return document.getElementsByClassName(className).length > 0;
@@ -23,26 +29,27 @@ function hasElement(className) {
 
 function initScrollbar(className) {
   if (hasElement(className)) {
-    new PerfectScrollbar(`.${className}`);
+    PerfectScrollbar(`.${className}`);
   } else {
-    // try to init it later in case this component is loaded async
+    // Intentar inicializarlo más tarde en caso de que este componente sea cargado asíncronamente
     setTimeout(() => {
       initScrollbar(className);
     }, 100);
   }
 }
 
-import { SlideYDownTransition, ZoomCenterTransition } from "vue2-transitions";
-
 export default {
-  name: "auth",
+  name: 'Auth',
   components: {
-    ZoomCenterTransition
+    ZoomCenterTransition,
   },
   data() {
     return {
-      sidebarBackground: "primary" //vue|blue|orange|green|red|primary
+      sidebarBackground: 'primary', // vue|blue|orange|green|red|primary
     };
+  },
+  mounted() {
+    this.initScrollbar();
   },
 
   methods: {
@@ -52,23 +59,20 @@ export default {
       }
     },
     initScrollbar() {
-      let docClasses = document.body.classList;
-      let isWindows = navigator.platform.startsWith("Win");
+      const docClasses = document.body.classList;
+      const isWindows = navigator.platform.startsWith('Win');
       if (isWindows) {
-        // if we are on windows OS we activate the perfectScrollbar function
-        initScrollbar("sidebar");
-        initScrollbar("main-panel");
-        initScrollbar("sidebar-wrapper");
+        // Si estamos en windows OS activamos la función perfectScrollbar
+        initScrollbar('sidebar');
+        initScrollbar('main-panel');
+        initScrollbar('sidebar-wrapper');
 
-        docClasses.add("perfect-scrollbar-on");
+        docClasses.add('perfect-scrollbar-on');
       } else {
-        docClasses.add("perfect-scrollbar-off");
+        docClasses.add('perfect-scrollbar-off');
       }
-    }
+    },
   },
-  mounted() {
-    this.initScrollbar();
-  }
 };
 </script>
 

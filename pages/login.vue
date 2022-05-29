@@ -3,27 +3,30 @@
     <div class="col-lg-4 col-md-6 ml-auto mr-auto">
       <card class="card-login card-white">
         <template slot="header">
-          <img src="img//card-primary.png" alt="" />
-          <h1 class="card-title">IoT GL   </h1>
+          <img
+            src="img//card-primary.png"
+            alt=""
+          >
+          <h1 class="card-title">
+            IoT GL
+          </h1>
         </template>
 
         <div>
           <base-input
-            name="email"
             v-model="user.email"
+            name="email"
             placeholder="Email"
             addon-left-icon="tim-icons icon-email-85"
-          >
-          </base-input>
+          />
 
           <base-input
-            name="contraseña"
             v-model="user.password"
+            name="contraseña"
             type="password"
             placeholder="Contraseña"
             addon-left-icon="tim-icons icon-lock-circle"
-          >
-          </base-input>
+          />
         </div>
 
         <div slot="footer">
@@ -32,21 +35,30 @@
             type="primary"
             class="mb-3"
             size="lg"
-            @click="login()"
             block
+            @click="login()"
           >
             Iniciar sesión
           </base-button>
           <div class="pull-left">
             <h6>
-              <nuxt-link class="link footer-link" to="/register">
+              <nuxt-link
+                class="link footer-link"
+                to="/register"
+              >
                 Crear cuenta
               </nuxt-link>
             </h6>
           </div>
 
           <div class="pull-right">
-            <h6><a href="#help!!!" class="link footer-link">Necesita ayuda?</a></h6>
+            <h6>
+              <a
+                href="#help!!!"
+                class="link footer-link"
+              >Necesita ayuda?
+              </a>
+            </h6>
           </div>
         </div>
       </card>
@@ -55,17 +67,17 @@
 </template>
 
 <script>
-const Cookie = process.client ? require("js-cookie") : undefined;
+
 export default {
   middleware: 'notAuthenticated',
-  name: "login-page",
-  layout: "auth",
+  name: 'LoginPage',
+  layout: 'auth',
   data() {
     return {
       user: {
-        email: "",
-        password: ""
-      }
+        email: '',
+        password: '',
+      },
     };
   },
   mounted() {
@@ -74,38 +86,33 @@ export default {
   methods: {
     login() {
       this.$axios
-        .post("/login", this.user)
-        .then(res => {
-
-          //success! - Usuario logueado.
-          if (res.data.status == "success") {
-
+        .post('/login', this.user)
+        .then((res) => {
+          // Satisfactorio! - Usuario logueado.
+          if (res.data.status === '1') {
             this.$notify({
-              type: "success",
-              icon: "tim-icons icon-check-2",
-              message: "Bienvenide " + res.data.userData.name
+              type: 'success',
+              icon: 'tim-icons icon-check-2',
+              message: `Bienvenide ${res.data.userData.name}`,
             });
 
-            console.log(res.data)
-
+            console.log(res.data);
             const auth = {
               token: res.data.token,
-              userData: res.data.userData
-            }
-
-            //token to de store - token a la tienda
+              userData: res.data.userData,
+            };
+            // Token a la tienda
             this.$store.commit('setAuth', auth);
 
-            //set auth object in localStorage - Grabamos el token en localStorage
+            // set auth object in localStorage - Grabamos el token en localStorage
             localStorage.setItem('auth', JSON.stringify(auth));
 
+            // eslint-disable-next-line no-undef
             $nuxt.$router.push('/dashboard');
-
-            return;
           }
-        })
-    }
-  }
+        });
+    },
+  },
 };
 </script>
 
