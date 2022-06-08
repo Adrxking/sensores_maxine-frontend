@@ -90,7 +90,7 @@ export default {
         .then((res) => {
           // Satisfactorio! - Usuario logueado.
           console.log(res.data);
-          if (res.data.status === '200') {
+          if (res.data.status === 'success') {
             this.$notify({
               type: 'success',
               icon: 'tim-icons icon-check-2',
