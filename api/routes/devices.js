@@ -144,6 +144,7 @@ async function updateSaverRuleStatus(emqxRuleId, status) {
     }
     return false;
   } catch (error) {
+    console.log(error, 'error Actualizar regla de guardado')
     return false;
   }
 }
@@ -224,7 +225,7 @@ function makeid(length) {
 const auth = {
   auth: {
     username: 'admin',
-    password: process.env.EMQX_DEFAULT_APPLICATION_SECRET,
+    password: 'public',
   },
 };
 
