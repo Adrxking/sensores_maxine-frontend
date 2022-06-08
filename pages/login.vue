@@ -89,7 +89,8 @@ export default {
         .post('/login', this.user)
         .then((res) => {
           // Satisfactorio! - Usuario logueado.
-          if (res.data.status === '1') {
+          console.log(res.data);
+          if (res.data.status === '200') {
             this.$notify({
               type: 'success',
               icon: 'tim-icons icon-check-2',
@@ -104,7 +105,7 @@ export default {
             // Token a la tienda
             this.$store.commit('setAuth', auth);
 
-            // set auth object in localStorage - Grabamos el token en localStorage
+            // Guardamos el token en localStorage
             localStorage.setItem('auth', JSON.stringify(auth));
 
             // eslint-disable-next-line no-undef
