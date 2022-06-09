@@ -48,10 +48,11 @@ export const actions = {
 
     this.$axios.get('/device', axiosHeader)
       .then((res) => {
-        console.log(res.data.data);
+        console.log(res.data.data, 'from get devices vuex');
 
         res.data.data.forEach((device, index) => {
           if (device.selected) {
+
             this.commit('setSelectedDevice', device);
             // eslint-disable-next-line no-undef
             $nuxt.$emit('selectedDeviceIndex', index);

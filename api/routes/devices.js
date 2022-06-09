@@ -250,6 +250,8 @@ router.get('/device', checkAuth, async (req, res) => {
     // Obtener reglas de alarmas
     const alarmRules = await getAlarmRules(userId);
 
+    console.log(devices, 'devices');
+    console.log(templates, 'templates');
     // Reglas de guardado a -> Dispositivos
     devices.forEach((device, index) => {
       // eslint-disable-next-line prefer-destructuring
