@@ -295,6 +295,10 @@ export default {
       this.newDevice.templateName = this.templates[
         this.selectedIndexTemplate
       ].name;
+      this.newDevice.template = {}
+      this.newDevice.template.widgets = this.templates[
+        this.selectedIndexTemplate
+      ].widgets;
 
       const toSend = {
         newDevice: this.newDevice

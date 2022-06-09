@@ -1,14 +1,14 @@
 <template>
 
 
-    
+
   <div class="row" v-if="$store.state.devices.length > 0">
 
     <div
       v-for="(widget, index) in $store.state.selectedDevice.template.widgets"
       :key="index"
       :class="[widget.column]"
-      
+
     >
 
       <Rtnumberchart
@@ -47,16 +47,15 @@ export default {
     return {
 
 
-    } 
+    }
   },
 
   mounted() {
-  
+
 
   },
 
   methods: {
-
     fixWidget(widget){
       var widgetCopy = JSON.parse(JSON.stringify(widget));
       widgetCopy.selectedDevice.dId = this.$store.state.selectedDevice.dId;
@@ -66,7 +65,7 @@ export default {
       if (widget.widget =="numberchart"){
         widgetCopy.demo = false;
       }
-      
+
       return widgetCopy;
     }
 
