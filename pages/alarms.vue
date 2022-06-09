@@ -6,7 +6,7 @@
         <card v-if="$store.state.devices.length > 0">
           <div slot="header">
             <h4 class="card-title">
-              Create new Alarm Rule {{ selectedWidgetIndex }}
+              Crear nueva Regla de Alarma {{ selectedWidgetIndex }}
             </h4>
           </div>
 
@@ -34,7 +34,7 @@
               <el-select
                 required
                 class="select-warning"
-                placeholder="Condition"
+                placeholder="Condición"
                 v-model="newRule.condition"
                 style="margin-top: 25px;"
               >
@@ -49,15 +49,15 @@
 
             <div class="col-3">
               <base-input
-                label="Value"
+                label="Valor"
                 v-model="newRule.value"
-                type="number"
+                type="text"
               ></base-input>
             </div>
 
             <div class="col-3">
               <base-input
-                label="Trigger Time"
+                label="Frecuencia"
                 v-model="newRule.triggerTime"
                 type="number"
               ></base-input>
@@ -76,13 +76,13 @@
                 size="lg"
                 :disabled="$store.state.devices.length == 0"
               >
-                Add Alarm Rule
+                Añadir Regla
               </base-button>
             </div>
           </div>
         </card>
         <card v-else>
-          You need to select a device to create an Alarm
+          Necesitas agregar un dispositivo para poder crear una regla.
         </card>
       </div>
     </div>
@@ -92,7 +92,7 @@
       <div class="col-sm-12">
         <card>
           <div slot="header">
-            <h4 class="card-title">Alarm Rules</h4>
+            <h4 class="card-title">Reglas de Alarmas</h4>
           </div>
 
           <el-table
@@ -107,26 +107,26 @@
 
             <el-table-column
               prop="variableFullName"
-              label="Var Name"
+              label="Nombre Var"
             ></el-table-column>
 
             <el-table-column prop="variable" label="Var"></el-table-column>
 
             <el-table-column
               prop="condition"
-              label="Condition"
+              label="Condición"
             ></el-table-column>
 
-            <el-table-column prop="value" label="Value"></el-table-column>
+            <el-table-column prop="value" label="Valor"></el-table-column>
 
             <el-table-column
               prop="triggerTime"
-              label="Trigger Time"
+              label="Frecuencia"
             ></el-table-column>
 
-            <el-table-column prop="counter" label="Matches"></el-table-column>
+            <el-table-column prop="counter" label="Coincidencia"></el-table-column>
 
-            <el-table-column min-width="110" header-align="right" align="right" label="Actions">
+            <el-table-column min-width="110" header-align="right" align="right" label="Acciones">
               <div
                 slot-scope="{ row, $index }"
                 class="text-right table-actions"
@@ -150,7 +150,7 @@
                   ></i>
                 </el-tooltip>
 
-                <!-- no ato row.status al v model porque al cambiar de status cambiaria directo sobre store lo que daría error en 
+                <!-- no ato row.status al v model porque al cambiar de status cambiaria directo sobre store lo que daría error en
                       cambio uso el value, al accionar el switch no cambiará el objeto, pero podré cambiar el valor en la función -->
                 <el-tooltip
                   content="Change Rule Status"
@@ -169,7 +169,7 @@
             </el-table-column>
           </el-table>
 
-          <h4 v-else class="card-title">No Alarm Rules</h4>
+          <h4 v-else class="card-title">No hay Reglas de Alarmas</h4>
         </card>
       </div>
     </div>
@@ -318,7 +318,7 @@ export default {
         return;
       }
 
-      
+
       this.newRule.dId = this.$store.state.selectedDevice.dId;
       this.newRule.deviceName = this.$store.state.selectedDevice.name;
       this.newRule.variableFullName = this.$store.state.selectedDevice.template.widgets[
@@ -328,7 +328,7 @@ export default {
         this.selectedWidgetIndex
       ].variable;
 
-      
+
 
       const axiosHeaders = {
         headers: {

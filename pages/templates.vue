@@ -16,23 +16,18 @@
             <el-select
               v-model="widgetType"
               class="select-success"
-              placeholder="Select Widget"
+              placeholder="Seleccionar Widget"
               style="width: 100%;"
             >
               <el-option
                 class="text-dark"
                 value="numberchart"
-                label="Number Chart INPUT <-"
+                label="Gráfico Numérico INPUT <-"
               />
               <el-option
                 class="text-dark"
                 value="indicator"
-                label="Boolean Indicator INPUT <-"
-              />
-              <el-option
-                class="text-dark"
-                value="map"
-                label="Map INPUT <-"
+                label="Indicador Booleano INPUT <-"
               />
               <el-option
                 class="text-dark"
@@ -42,7 +37,7 @@
               <el-option
                 class="text-dark"
                 value="button"
-                label="Button OUTPUT ->"
+                label="Botón OUTPUT ->"
               />
             </el-select>
 
@@ -53,25 +48,25 @@
             <div v-if="widgetType == 'numberchart'">
               <base-input
                 v-model="ncConfig.variableFullName"
-                label="Var Name"
+                label="Nombre de la variable"
                 type="text"
               />
 
               <base-input
                 v-model="ncConfig.unit"
-                label="Unit"
+                label="Unidad"
                 type="text"
               />
 
               <base-input
                 v-model.number="ncConfig.decimalPlaces"
-                label="Decimal Places"
+                label="Decimales"
                 type="number"
               />
 
               <base-input
                 v-model="ncConfig.icon"
-                label="Icon"
+                label="Icono de FA"
                 type="text"
               />
 
@@ -79,7 +74,7 @@
 
               <base-input
                 v-model.number="ncConfig.variableSendFreq"
-                label="Send Freq"
+                label="Frecuencia de emisión"
                 type="number"
               />
 
@@ -87,7 +82,7 @@
 
               <base-input
                 v-model.number="ncConfig.chartTimeAgo"
-                label="Chart Back Time (mins)"
+                label="Linea de tiempo del Gráfico (mins)"
                 type="number"
               />
 
@@ -96,28 +91,28 @@
               <el-select
                 v-model="ncConfig.class"
                 class="select-success"
-                placeholder="Select Class"
+                placeholder="Seleccionar clase"
                 style="width: 100%;"
               >
                 <el-option
                   class="text-success"
                   value="success"
-                  label="Success"
+                  label="Satisfactorio"
                 />
                 <el-option
                   class="text-primary"
                   value="primary"
-                  label="Primary"
+                  label="Primario"
                 />
                 <el-option
                   class="text-warning"
                   value="warning"
-                  label="Warning"
+                  label="Advertencia"
                 />
                 <el-option
                   class="text-danger"
                   value="danger"
-                  label="Danger"
+                  label="Peligro"
                 />
               </el-select>
 
@@ -126,7 +121,7 @@
               <el-select
                 v-model="ncConfig.column"
                 class="select-success"
-                placeholder="Select Column Width"
+                placeholder="Selecciona ancho de la columna"
                 style="width: 100%;"
               >
                 <el-option
@@ -188,13 +183,13 @@
             <div v-if="widgetType == 'switch'">
               <base-input
                 v-model="iotSwitchConfig.variableFullName"
-                label="Var Name"
+                label="Nombre de la variable"
                 type="text"
               />
 
               <base-input
                 v-model="iotSwitchConfig.icon"
-                label="Icon"
+                label="Icono de FA"
                 type="text"
               />
 
@@ -203,28 +198,28 @@
               <el-select
                 v-model="iotSwitchConfig.class"
                 class="select-success"
-                placeholder="Select Class"
+                placeholder="Seleccionar Clase"
                 style="width: 100%;"
               >
                 <el-option
                   class="text-success"
                   value="success"
-                  label="Success"
+                  label="Satisfactorio"
                 />
                 <el-option
                   class="text-primary"
                   value="primary"
-                  label="Primary"
+                  label="Primario"
                 />
                 <el-option
                   class="text-warning"
                   value="warning"
-                  label="Warning"
+                  label="Advertencia"
                 />
                 <el-option
                   class="text-danger"
                   value="danger"
-                  label="Danger"
+                  label="Peligro"
                 />
               </el-select>
 
@@ -233,7 +228,7 @@
               <el-select
                 v-model="iotSwitchConfig.column"
                 class="select-success"
-                placeholder="Select Column Width"
+                placeholder="Seleccionar ancho de la columna"
                 style="width: 100%;"
               >
                 <el-option
@@ -295,25 +290,25 @@
             <div v-if="widgetType == 'button'">
               <base-input
                 v-model="configButton.variableFullName"
-                label="Var Name"
+                label="Nombre de la variable"
                 type="text"
               />
 
               <base-input
                 v-model="configButton.message"
-                label="Message to send"
+                label="Mensaje a enviar"
                 type="text"
               />
 
               <base-input
                 v-model="configButton.text"
-                label="Button Text"
+                label="Mensaje del Botón"
                 type="text"
               />
 
               <base-input
                 v-model="configButton.icon"
-                label="Icon"
+                label="Icono de FA"
                 type="text"
               />
 
@@ -322,28 +317,28 @@
               <el-select
                 v-model="configButton.class"
                 class="select-success"
-                placeholder="Select Class"
+                placeholder="Seleccionar Clase"
                 style="width: 100%;"
               >
                 <el-option
                   class="text-success"
                   value="success"
-                  label="Success"
+                  label="Satisfactorio"
                 />
                 <el-option
                   class="text-primary"
                   value="primary"
-                  label="Primary"
+                  label="Primario"
                 />
                 <el-option
                   class="text-warning"
                   value="warning"
-                  label="Warning"
+                  label="Advertencia"
                 />
                 <el-option
                   class="text-danger"
                   value="danger"
-                  label="Danger"
+                  label="Peligro"
                 />
               </el-select>
 
@@ -352,7 +347,7 @@
               <el-select
                 v-model="configButton.column"
                 class="select-success"
-                placeholder="Select Column Width"
+                placeholder="Seleccionar ancho de la columna"
                 style="width: 100%;"
               >
                 <el-option
@@ -414,13 +409,13 @@
             <div v-if="widgetType == 'indicator'">
               <base-input
                 v-model="iotIndicatorConfig.variableFullName"
-                label="Var Name"
+                label="Nombre de la variable"
                 type="text"
               />
 
               <base-input
                 v-model="iotIndicatorConfig.icon"
-                label="Icon"
+                label="Icono de FA"
                 type="text"
               />
 
@@ -428,7 +423,7 @@
 
               <base-input
                 v-model="iotIndicatorConfig.variableSendFreq"
-                label="Send Freq"
+                label="Frecuencia de envío"
                 type="text"
               />
 
@@ -437,28 +432,28 @@
               <el-select
                 v-model="iotIndicatorConfig.class"
                 class="select-success"
-                placeholder="Select Class"
+                placeholder="Seleccionar Clase"
                 style="width: 100%;"
               >
                 <el-option
                   class="text-success"
                   value="success"
-                  label="Success"
+                  label="Satisfactorio"
                 />
                 <el-option
                   class="text-primary"
                   value="primary"
-                  label="Primary"
+                  label="Primario"
                 />
                 <el-option
                   class="text-warning"
                   value="warning"
-                  label="Warning"
+                  label="Advertencia"
                 />
                 <el-option
                   class="text-danger"
                   value="danger"
-                  label="Danger"
+                  label="Peligro"
                 />
               </el-select>
 
@@ -467,7 +462,7 @@
               <el-select
                 v-model="iotIndicatorConfig.column"
                 class="select-success"
-                placeholder="Select Column Width"
+                placeholder="Seleccionar ancho de la columna"
                 style="width: 100%;"
               >
                 <el-option
@@ -557,7 +552,7 @@
               size="lg"
               @click="addNewWidget()"
             >
-              Add Widget
+              Añadir Widget
             </base-button>
           </div>
         </div>
@@ -613,14 +608,14 @@
           <base-input
             v-model="templateName"
             class="col-4"
-            label="Template Name"
+            label="Nombre de la plantilla"
             type="text"
           />
 
           <base-input
             v-model="templateDescription"
             class="col-8"
-            label="Template Description"
+            label="Descripción de la plantilla"
             type="text"
           />
         </div>
@@ -670,7 +665,7 @@
 
             <el-table-column
               prop="name"
-              label="Name"
+              label="Nombre"
             />
 
             <el-table-column
@@ -686,7 +681,7 @@
             <el-table-column
               header-align="right"
               align="right"
-              label="Actions"
+              label="Acciones"
             >
               <div
                 slot-scope="{ row, $index }"

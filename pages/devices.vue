@@ -90,7 +90,7 @@
           ></el-table-column>
 
           <!-- COLUMNA CON ACCIONES -->
-          <el-table-column label="Actions">
+          <el-table-column label="Acciones">
 
             <div slot-scope="{ row, $index }">
               <!-- INDICADOR ESTADO DEL SERVIDOR -->
@@ -200,7 +200,7 @@ export default {
             this.$notify({
               type: "success",
               icon: "tim-icons icon-check-2",
-              message: " Device Saver Status Updated"
+              message: " Reglas de guardado del dispositivo actualizadas"
             });
 
           }
@@ -212,7 +212,7 @@ export default {
           this.$notify({
             type: "danger",
             icon: "tim-icons icon-alert-circle-exc",
-            message: " Error updating saver rule status"
+            message: " Error actualizando el estado de las reglas de guardado"
           });
           return;
         });
@@ -248,7 +248,7 @@ export default {
           this.$notify({
             type: "danger",
             icon: "tim-icons icon-alert-circle-exc",
-            message: " Error deleting " + device.name
+            message: " Error eliminando " + device.name
           });
           return;
         });
@@ -259,7 +259,7 @@ export default {
         this.$notify({
           type: "warning",
           icon: "tim-icons icon-alert-circle-exc",
-          message: " Device Name is Empty :("
+          message: " El nombre del dispositivo está vacío :("
         });
         return;
       }
@@ -268,7 +268,7 @@ export default {
         this.$notify({
           type: "warning",
           icon: "tim-icons icon-alert-circle-exc",
-          message: " Device ID is Empty :("
+          message: " El ID del dispositivo está vacío :("
         });
         return;
       }
@@ -277,7 +277,7 @@ export default {
         this.$notify({
           type: "warning",
           icon: "tim-icons icon-alert-circle-exc",
-          message: " Tempalte must be selected"
+          message: " Debes seleccionar una plantilla"
         });
         return;
       }
@@ -313,7 +313,7 @@ export default {
             this.$notify({
               type: "success",
               icon: "tim-icons icon-check-2",
-              message: "Success! Device was added"
+              message: "Dispositivo añadido!"
             });
 
             return;
@@ -328,7 +328,7 @@ export default {
               type: "warning",
               icon: "tim-icons icon-alert-circle-exc",
               message:
-                "The device is already registered in the system. Try another device"
+                "El dispoisitivo ya está registrado en el sistema"
             });
             return;
           } else {
@@ -348,7 +348,6 @@ export default {
 
       try {
         const res = await this.$axios.get("/template", axiosHeaders);
-        console.log(res.data);
 
         if (res.data.status == "success") {
           this.templates = res.data.data;
@@ -357,7 +356,7 @@ export default {
         this.$notify({
           type: "danger",
           icon: "tim-icons icon-alert-circle-exc",
-          message: "Error getting templates..."
+          message: "Error obteniendo las plantillas..."
         });
         console.log(error);
         return;
@@ -381,7 +380,7 @@ export default {
             this.$notify({
               type: "success",
               icon: "tim-icons icon-check-2",
-              message: device.name + " deleted!"
+              message: device.name + " eliminado!"
             });
             this.$store.dispatch("getDevices");
           }
@@ -391,7 +390,7 @@ export default {
           this.$notify({
             type: "danger",
             icon: "tim-icons icon-alert-circle-exc",
-            message: " Error deleting " + device.name
+            message: " Error eliminando " + device.name
           });
         });
     },

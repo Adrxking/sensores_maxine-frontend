@@ -3,7 +3,7 @@
     <card>
 
         <template slot="header">
-           
+
             <h5 class="card-category"> {{ config.selectedDevice.name }} - {{ config.variableFullName }}</h5>
 
             <h3 class="card-title">
@@ -25,7 +25,7 @@
     export default {
         name: 'iotswitch',
         props: ['config'],
-        
+
         data() {
             return {
                 value: true
@@ -52,7 +52,7 @@
         methods: {
 
             getIconColorClass() {
-                //para apagar el icono 
+                //para apagar el icono
                 if (!this.value){
                     return "text-dark";
                 }
@@ -71,21 +71,18 @@
                 }
             },
 
-
             sendValue(){
 
                 const toSend = {
-                    topic: this.config.userId + '/' + this.config.selectedDevice.dId + '/' + this.config.variable + '/actdata',
+                    topic: this.config.userId + '/' + this.config.selectedDevice.dId + '/' + this.config.variable + '/sdata',
                     msg: {
                         value: this.value
                     }
                 };
+                console.log(toSend, 'tosend');
 
                 $nuxt.$emit('mqtt-sender', toSend);
-
             }
-
-
         }
     };
 </script>

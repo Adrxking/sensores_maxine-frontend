@@ -21,7 +21,7 @@
 
         <sidebar-item
           :link="{
-            name: 'Devices',
+            name: 'Dispositivos',
             icon: 'tim-icons icon-light-3',
             path: '/devices'
           }"
@@ -29,7 +29,7 @@
 
         <sidebar-item
           :link="{
-            name: 'Alarms',
+            name: 'Alarmas',
             icon: 'tim-icons icon-bell-55',
             path: '/alarms'
           }"
@@ -37,7 +37,7 @@
 
         <sidebar-item
           :link="{
-            name: 'Templates',
+            name: 'Plantillas',
             icon: 'tim-icons icon-atom',
             path: '/templates'
           }"
@@ -127,7 +127,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getNotifications');
-    this.initScrollbar();
 
     setTimeout(() => {
       this.startMqttClient();
@@ -206,8 +205,6 @@ export default {
 
     async startMqttClient() {
       await this.getMqttCredentials();
-
-      // ex topic: "userid/did/variableId/sdata"
       // eslint-disable-next-line no-underscore-dangle
       const deviceSubscribeTopic = `${this.$store.state.auth.userData._id}/+/+/sdata`;
       // eslint-disable-next-line no-underscore-dangle
@@ -221,7 +218,7 @@ export default {
       try {
         this.client = mqtt.connect(connectUrl, this.options);
       } catch (error) {
-        console.log(error);
+        console.log(error, 'error connect mqtt');
       }
 
       // CONEXIÓN MQTT SATISFACTORIA
@@ -292,7 +289,8 @@ export default {
       });
 
       // eslint-disable-next-line no-undef
-      $nuxt.$on('mqtt-sender', (toSend) => {
+      this.$nuxt.$on('mqtt-sender', (toSend) => {
+        console.log(toSend.topic, JSON.stringify(toSend.msg), 'hey!!');
         this.client.publish(toSend.topic, JSON.stringify(toSend.msg));
       });
     },

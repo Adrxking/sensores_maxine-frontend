@@ -39,58 +39,17 @@
         tag="li"
         :menu-on-right="!$rtl.isRTL"
         title-tag="a"
-        title-classes="nav-link"
-        class="nav-item"
-      >
-        <template slot="title">
-          <div
-            v-if="$store.state.notifications.length > 0"
-            class="notification d-none d-lg-block d-xl-block"
-          ></div>
-          <i class="tim-icons icon-sound-wave"></i>
-          <p class="d-lg-none">New Notifications</p>
-        </template>
-
-        <li
-          @click="notificationReaded(notification._id)"
-          v-for="notification in $store.state.notifications"
-          class="nav-link"
-        >
-          <a href="#" class="nav-item dropdown-item">
-            <b style="color:orangered">{{ unixToDate(notification.time) }}</b>
-            <div style="margin-left:50px">
-              <b>Device: </b> {{ notification.deviceName }} <br />
-              <b>Variable: </b> {{ notification.variableFullName }} <br />
-              <b>Condition: </b> {{ notification.condition }} <br />
-              <b>Limit: </b> {{ notification.value }} <br />
-              <b>Value: </b> {{ notification.payload.value }}
-            </div>
-          </a>
-        </li>
-      </base-dropdown>
-
-      <base-dropdown
-        tag="li"
-        :menu-on-right="!$rtl.isRTL"
-        title-tag="a"
         class="nav-item"
         title-classes="nav-link"
         menu-classes="dropdown-navbar"
       >
         <template slot="title">
-          <div class="photo"><img src="img/mike.jpg" /></div>
+          <div class="photo"><img src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" /></div>
           <b class="caret d-none d-lg-block d-xl-block"></b>
           <p @click="logOut()" class="d-lg-none">Log out</p>
         </template>
         <li class="nav-link">
-          <a href="#" class="nav-item dropdown-item">Profile</a>
-        </li>
-        <li class="nav-link">
-          <a href="#" class="nav-item dropdown-item">Settings</a>
-        </li>
-        <div class="dropdown-divider"></div>
-        <li class="nav-link">
-          <a href="#" @click="logOut()" class="nav-item dropdown-item">Log out</a>
+          <a href="#" @click="logOut()" class="nav-item dropdown-item">Cerrar sesión</a>
         </li>
       </base-dropdown>
     </ul>

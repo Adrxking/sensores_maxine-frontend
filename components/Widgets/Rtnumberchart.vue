@@ -189,7 +189,6 @@ export default {
         .then((res) => {
           this.chartOptions.series[0].data = [];
           const { data } = res.data;
-          console.log(res.data);
 
           data.forEach((element) => {
             const aux = [];
@@ -199,6 +198,8 @@ export default {
 
             this.chartOptions.series[0].data.push(aux);
           });
+
+          this.value = this.chartOptions.series[0].data[this.chartOptions.series[0].data.length - 1][1];
 
           this.isMounted = true;
         })

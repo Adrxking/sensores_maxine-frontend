@@ -26,31 +26,29 @@ export default {
     };
   },
   mounted() {
- 
+
   },
   methods: {
 
     sendValue() {
 
-        this.sending = true;
+      this.sending = true;
 
         setTimeout(() => {
-            this.sending = false;
+          this.sending = false;
         }, 500);
 
         const toSend = {
-            topic: this.config.userId + "/" + this.config.selectedDevice.dId + "/" + this.config.variable + "/actdata",
+          topic: this.config.userId + "/" + this.config.selectedDevice.dId + "/" + this.config.variable + "/sdata",
             msg: {
                 value: this.config.message
             }
         };
 
-        console.log(toSend);
+        console.log(toSend, "toSend");
         this.$nuxt.$emit('mqtt-sender', toSend);
-
-
     },
-   
+
 
     getIconColorClass() {
 
