@@ -10,6 +10,7 @@ const deviceSchema = new Schema({
   name: { type: String, required: [true] },
   password: { type: String, required: [true] },
   selected: { type: Boolean, required: [true], default: false },
+  template: { type: Object, required: [true] },
   templateId: { type: String, required: [true] },
   templateName: { type: String, required: [true] },
   createdTime: { type: Number },
