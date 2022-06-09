@@ -261,7 +261,7 @@ router.get('/device', checkAuth, async (req, res) => {
       // eslint-disable-next-line prefer-destructuring
       devices[index].template = templates.filter(
         // eslint-disable-next-line no-underscore-dangle
-        (template) => template._id === device.templateId,
+        (template) => template._id.toString() === device.templateId,
       )[0];
       devices[index].alarmRules = alarmRules.filter(
         (alarmRule) => alarmRule.dId === device.dId,
